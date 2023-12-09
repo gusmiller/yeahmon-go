@@ -8,15 +8,8 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const router = require('express').Router();
-const {
-     getVideos,
-     getSingleVideo,
-     createVideo,
-     updateVideo,
-     deleteVideo,
-     addVideoResponse,
-     removeVideoResponse,
-} = require('../../controllers/videoController');
+const { getVideos, getSingleVideo, createVideo, updateVideo, deleteVideo,
+     addVideoResponse, removeVideoResponse } = require('../../controllers/videoController');
 
 // /api/videos
 router.route('/').get(getVideos).post(createVideo);
