@@ -14,8 +14,11 @@ const chalk = require("chalk");
 
 const messages = {
      appname: chalk.bgRed("Carleton Universty Coding Bootcamp"),
-     databaseconnected: chalk.bgGreen("Database connected!"),
+     databaseconnected: chalk.green("Database connected!"),
+     connectionerror: chalk.red(`Database connection error! `),
+     databasename: chalk.green(`Connecting to database: `),
+     apirunning: chalk.yellow(`API server running on port:`),
      databaseseeded: chalk.bgGreen("Users table has been seeded"),
      listeningdata: chalk.bgGreen('----- LISTENING PLEASE USE YOUR INSOMNIA TO VALIDATE -----'),
 }
-module.exports = { sql, messages };
+module.exports = { messages };

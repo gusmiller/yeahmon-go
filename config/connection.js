@@ -10,12 +10,14 @@
 require('dotenv').config();
 const { connect, connection } = require('mongoose');
 const dic = require("../utils/queries");
+const messages = require("../utils/formatter");
 
+messages.msg(dic.messages.databasename + process.env.DB_NAME);
 connect(process.env.DB_HOST + process.env.DB_NAME)
      .then(() => {
-          console.log("Database connected!");
+          messages.msg(dic.messages.databaseconnected);
      }).catch(error => {
-          console.log("Connection Error " + error.message)
+          messages.msg(dic.messages.connectionerror + error.message)
      });
 
 module.exports = connection;

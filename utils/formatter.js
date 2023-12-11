@@ -13,7 +13,7 @@
  *******************************************************************/
 const figlet = require("figlet");
 const chalk = require('chalk');
-const dic = require("../db/queries");
+const dic = require("./queries");
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -24,8 +24,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 function apiendpoints() {
 
      msg(chalk.green('Server is ready to serve website:'), null, true);
-     msg(chalk.white('     Goto your favorite webbrowser and type'), null, false);
-     msg(chalk.white(`     localhost: ${process.env.PORT}`), null, false);
+     msg(chalk.white('     Test your API using your favorite tool'), null, false);
      msg(chalk.white(`Database Name : ${process.env.DB_NAME}`), null, false);
      msg(chalk.white(`Credentials   : gustavo.miller@miller-hs.com`), null, false);
      msg(chalk.white(`Date          : ${new Date().toLocaleString()}`));
