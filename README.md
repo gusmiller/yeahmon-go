@@ -12,19 +12,22 @@
 <details style="margin-bottom: 25px; margin-top: 25px;">
 	<summary>Table of Contents</summary>
 	<ol>
-		<li><a href="#Description">Generator Description</a></li>
+		<li><a href="#Description">Social Network API Description</a></li>
 		<li><a href="#installation">Installation</a></li>
 		<li><a href="#usage">Application Usage</a></li>
 		<li><a href="#contactme">Questions? Contact Me!</a></li>
 	</ol>
 </details>
+
 <div id="Description" style="margin-top: 25px;">
 
-## Generator Description
+## Social Network API Description
 
-Description entered automatically by Lorem Ipsum. Aut, nobis quod earum, dolores accusamus modi libero possimus nam et aliquam non, blanditiis saepe. quod earum, dolores accusamus modi libero possimus nam et. Aut, nobis quod earum, dolores accusamus modi libero possimus nam et aliquam non, blanditiis saepe. quod earum, dolores accusamus modi libero possimus nam et.
+This past week has been all about mongodb. Mongo is a very common NOSql Database out in the market And it is the choice number one for social network applications. NoSQL Databases are non relational databases, designed for applications that need low latency and flexible models to manage large data volumes. 
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus natus iure dolorum aperiam itaque? Ipsam ad quidem quo neque aliquam natus blanditiis totam. Rerum accusantium fugit, alias numquam tenetur nemo necessitatibus laudantium officiis. Reprehenderit dolor labore iusto ut minus fugiat tempora, expedita corrupti. Ab tenetur similique ipsa dolore odio earum aliquam animi ducimus optio quibusdam ipsam eos ipsum perferendis, perspiciatis quasi temporibus. Aliquam perspiciatis dolorum est expedita quo possimus, quas temporibus pariatur mollitia debitis. Ducimus sapiente impedit culpa eos alias voluptas minima corporis veniam commodi perspiciatis. At quaerat quas porro veritatis sapiente nihil fugit cumque voluptatum voluptatem recusandae alias nulla iusto, quam exercitationem, ipsa corrupti possimus eligendi repellendus!
+It is because it is fast, reliable and very flexible. It can handle large volumes of data at high-speed, store unstructure, semi structured and even structured data.
+
+This week's assignment is to build a social network API that would allow users share thoughts or react to friends thoughts and even create a friend's list. The application won't have an interface because it is an API Therefore we would rely on insomnia to access and create records.
 
 Here is my product!
 
