@@ -13,7 +13,7 @@
  *******************************************************************/
 const figlet = require("figlet");
 const chalk = require('chalk');
-const dic = require("./db/queries");
+const dic = require("./queries");
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

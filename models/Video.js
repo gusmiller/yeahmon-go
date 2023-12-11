@@ -40,14 +40,6 @@ const videoSchema = new Schema(
      }
 );
 
-// Create a virtual property `responses` that gets the amount of response per video
-videoSchema
-     .virtual('getResponses')
-     // Getter
-     .get(function () {
-          return this.responses.length;
-     });
-
 // Initialize our Video model
 const Video = model('video', videoSchema);
 
