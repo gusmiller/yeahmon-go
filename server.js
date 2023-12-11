@@ -11,7 +11,7 @@ const express = require('express');
 const db = require('./config/connection');
 const routes = require('./routes');
 const messages = require("./utils/formatter");
-const dic = require("../utils/queries");
+const dic = require("./utils/queries");
 
 const PORT = 3001;
 const app = express();

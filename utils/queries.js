@@ -21,4 +21,4 @@ const messages = {
      databaseseeded: chalk.bgGreen("Users table has been seeded"),
      listeningdata: chalk.bgGreen('----- LISTENING PLEASE USE YOUR INSOMNIA TO VALIDATE -----'),
 }
-module.exports = { sql, messages };
+module.exports = { messages };
