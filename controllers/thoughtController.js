@@ -4,15 +4,15 @@
  * Licensed under GNU General Public License
  * Assignment # 18 - Mongoose Social Network API
  * 
- * Date : 12/08/2023 14:01:28 PM
+ * Date : 12/12/2023 5:25:01 PM
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
-const User = require('../models/User');
+const Thouhgts = require('../models/Thought');
 
 module.exports = {
      async getAll(req, res) {
           try {
-               const data = await User.find();
+               const data = await Thouhgts.find();
                res.json(data);
           } catch (error) {
                res.status(500).json(error);
@@ -20,11 +20,10 @@ module.exports = {
      },
      async getSingle(req, res) {
           try {
-               const data = await User.findOne({ _id: req.params.userId })
+               const data = await Thouhgts.findOne({ _id: req.params.thought_id })
                     .select('-__v');
-
                if (!data) {
-                    return res.status(404).json({ message: 'No user with such user ID' });
+                    return res.status(404).json({ message: 'There is no thought such ID' });
                }
 
                res.json(data);
@@ -32,9 +31,9 @@ module.exports = {
                res.status(500).json(error);
           }
      },
-     async newUser(req, res) {
+     async newOne(req, res) {
           try {
-               const dbData = await User.create(req.body);
+               const dbData = await Thouhgts.create(req.body);
                res.json(dbData);
           } catch (error) {
                res.status(500).json(error);

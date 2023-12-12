@@ -8,12 +8,12 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const router = require('express').Router();
-const { getUsers, getSingleUser, createUser } = require('../../controllers/userController');
+const { getAll, getSingle, newUser } = require('../../controllers/userController');
 
 // /api/users
-router.route('/').get(getUsers).post(createUser);
+router.route('/').get(getAll).post(newUser);
 
 // /api/users/:userId
-router.route('/:userId').get(getSingleUser);
+router.route('/:userId').get(getSingle);
 
 module.exports = router;
