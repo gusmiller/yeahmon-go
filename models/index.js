@@ -8,6 +8,6 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const User = require('./User');
-const Video = require('./Video');
+const Thought = require('./Thought');
 
-module.exports = { User, Video };
+module.exports = { User, Thought };
