@@ -4,14 +4,16 @@
  * Licensed under GNU General Public License
  * Assignment # 18 - Mongoose Social Network API
  * 
- * Date : 12/08/2023 14:01:28 PM
+ * Date : 12/12/2023 5:39:22 PM
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const router = require('express').Router();
-const userRoutes = require('./userRoutes');
-const thoughtsRoutes = require('./thoughtRoutes');
+const { getAll, getSingle, newOne } = require('../../controllers/thoughtController');
 
-router.use('/users', userRoutes);
-router.use('/thoughts', thoughtsRoutes);
+// /api/thoughts
+router.route('/').get(getAll).post(newUser);
+
+// /api/thoughts/:Id
+router.route('/:Id').get(getSingle);
 
 module.exports = router;
