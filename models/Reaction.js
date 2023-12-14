@@ -26,7 +26,9 @@ const dataSchema = new Schema(
           reactionBody: { type: String, require: true, validate: nameValidator },
           username: { type: String, require: true },
           createdAt: { type: Date, default: Date.now },
-     });
+     },
+     { toJSON: { virtuals: true }, id: false }
+     );
 
 // Format date using a virtual prop. We should use a date library to configure
 // how date should be configured.

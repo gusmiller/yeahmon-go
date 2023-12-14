@@ -11,7 +11,10 @@ const router = require('express').Router();
 const { getAll, getSingle, newOne } = require('../../controllers/thoughtController');
 
 // /api/thoughts
-router.route('/').get(getAll).post(newUser);
+router.route('/').get(getAll).post(newOne);
+
+// router.get('/', getAll);
+// router.post('/', newOne);
 
 // /api/thoughts/:Id
 router.route('/:Id').get(getSingle);

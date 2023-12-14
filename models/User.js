@@ -14,20 +14,16 @@ const dataSchema = new Schema(
      {
           username: { type: String, trim: true, unique: true, require: true },
           email: { type: String, require: true },
-          thoughts: [
-               {
-                    type: Schema.Types.ObjectId,
-                    ref: 'thought',
-               },
-          ],
-          friends: [
-               {
-                    type: Schema.Types.ObjectId,
-                    ref: 'User',
-               },
-          ],
-     }
+          thoughts: [{ type: Schema.Types.ObjectId,ref: 'thought' }],
+          friends: [{ type: Schema.Types.ObjectId,ref: 'User' }],
+     },
+     { toJSON: { virtuals: true }, id: false }
 );
+
+// Create a virtual property `friendsCount` that gets the amount of friends
+dataSchema.virtual('friendsCount').get(function () {
+     return this.friends.length;
+   });
 
 // Initialize our User model
 const Users = model('user', dataSchema);
