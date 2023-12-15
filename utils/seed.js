@@ -15,21 +15,36 @@ const { users, thoughts } = require('./data');
 
 connection.on('error', (err) => err);
 
-async function createUser(value) {
+async function createThoughts() {
 
-     const user = await User.findOne()
-          .where('email').equals(value.username)
-          .exec((err, result) => {
-               if (err) {
-                    console.error(err);
-               } else {
-                    console.log(result);
-               }
-          });
+     for(let i = 0; i < thoughts.length; i++) {
 
-     await Thoughts.insertOne({ "thoughtText": value.Thought, "username": user.id });
-     return userId;
+          const currentThought = await Thoughts.create(
+               { "thoughtText": thoughts[i].thoughtText, "username": thoughts[i].username }
+          );
+
+          const user = await User.findOneAndUpdate(
+               { email: thoughts[i].username },
+               { $push: { thoughts: currentThought._id } }
+          );
+     };
 }
+
+// async function createUser(value) {
+
+//      const user = await User.findOne()
+//           .where('email').equals(value.username)
+//           .exec((err, result) => {
+//                if (err) {
+//                     console.error(err);
+//                } else {
+//                     console.log(result);
+//                }
+//           });
+
+//      await Thoughts.insertOne({ "thoughtText": value.Thought, "username": user.id });
+//      return userId;
+// }
 
 connection.once('open', async () => {
      // Delete the collections if they exist
@@ -44,10 +59,7 @@ connection.once('open', async () => {
      }
 
      await User.insertMany(users);
-
-     // thoughts.forEach(thought => {
-     //      createUser(thought);
-     // });
+     await createThoughts();
 
      console.info('Seeding complete! 🌱');
      process.exit(0);
