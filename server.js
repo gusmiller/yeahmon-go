@@ -20,14 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-process.stdout.write("\x1Bc");
-
-messages.figletMsg("Carleton U");
-messages.figletMsg("Mongoose Network");
-
 db.once('open', () => {
      app.listen(PORT, () => {
-          messages.figletMsg("Mongoo")
+          messages.figletMsg("Carleton U");
+          messages.figletMsg("Mongoose Network");
           messages.msg(dic.messages.apirunning + PORT);
      });
 });
