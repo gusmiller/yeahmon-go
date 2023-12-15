@@ -11,40 +11,36 @@ const { json } = require('express');
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 const Thoughts = require('../models/Thought');
-const { users, thoughts } = require('./data');
+const { users, thoughts, friends } = require('./data');
 
 connection.on('error', (err) => err);
 
+async function createFrients() {
+
+     for (let i = 0; i < friends.length; i++) {
+          const friend = await User.findOne({ username: friends[i].friend })
+          await User.findOneAndUpdate(
+               { username: thoughts[i].username },
+               { $push: { friends: friend._id } },
+               { new: true }
+          );
+     }
+}
+
 async function createThoughts() {
 
-     for(let i = 0; i < thoughts.length; i++) {
-
-          const currentThought = await Thoughts.create(
+     for (let i = 0; i < thoughts.length; i++) {
+          const newThought = await Thoughts.create(
                { "thoughtText": thoughts[i].thoughtText, "username": thoughts[i].username }
           );
 
           const user = await User.findOneAndUpdate(
-               { email: thoughts[i].username },
-               { $push: { thoughts: currentThought._id } }
+               { username: thoughts[i].username },
+               { $push: { thoughts: newThought._id } },
+               { new: true }
           );
      };
 }
-
-// async function createUser(value) {
-
-//      const user = await User.findOne()
-//           .where('email').equals(value.username)
-//           .exec((err, result) => {
-//                if (err) {
-//                     console.error(err);
-//                } else {
-//                     console.log(result);
-//                }
-//           });
-
-//      await Thoughts.insertOne({ "thoughtText": value.Thought, "username": user.id });
-//      return userId;
-// }
 
 connection.once('open', async () => {
      // Delete the collections if they exist
@@ -60,6 +56,7 @@ connection.once('open', async () => {
 
      await User.insertMany(users);
      await createThoughts();
+     await createFrients();
 
      console.info('Seeding complete! 🌱');
      process.exit(0);
