@@ -8,7 +8,7 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const router = require('express').Router();
-const { getAll, getSingle, newOne } = require('../../controllers/thoughtController');
+const { getAll, getSingle, newOne, deleteThought } = require('../../controllers/thoughtController');
 
 // /api/thoughts
 router.route('/').get(getAll).post(newOne);
@@ -17,6 +17,6 @@ router.route('/').get(getAll).post(newOne);
 // router.post('/', newOne);
 
 // /api/thoughts/:Id
-router.route('/:Id').get(getSingle);
+router.route('/:Id').get(getSingle).delete(deleteThought);
 
 module.exports = router;

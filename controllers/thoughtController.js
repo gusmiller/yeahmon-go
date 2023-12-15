@@ -39,4 +39,13 @@ module.exports = {
                res.status(500).json(error);
           }
      },
+     async deleteThought(req, res) {
+          try {
+               const dbData = await Thouhgts.findOneAndRemove({ _id: req.params.userId });
+               if (!dbData) { return res.status(404).json({ message: 'No thoughts found!' }); }
+               res.json({ message: 'User successfully deleted!' });
+          } catch (err) {
+               res.status(500).json(err);
+          }
+     },
 };
