@@ -8,6 +8,22 @@ const users = [
      { username: "Sebastian Echegoyen", email: "sebas@miller-hs.com" },
 ]
 
+const friends = [
+     { username: "Gustavo Miller", friend: "Mirtha Miller" },
+     { username: "Gustavo Miller", friend: "Camelia Miller" },
+     { username: "Gustavo Miller", friend: "Felipe Miller" },
+     { username: "Gustavo Miller", friend: "Christina Miller" },
+     { username: "Mirtha Miller", friend: "Gustavo Miller" },
+     { username: "Mirtha Miller", friend: "Sebastian Echegoyen" },
+     { username: "Mirtha Miller", friend: "Felipe Miller" },
+     { username: "Mirtha Miller", friend: "Camelia Miller" },
+     { username: "Mirtha Miller", friend: "Felipe Miller" },
+     { username: "Mirtha Miller", friend: "Christina Miller" },
+     { username: "Mirtha Miller", friend: "Kevin Miller" },
+     { username: "Felipe Miller", friend: "Mirtha Miller" },
+     { username: "Felipe Miller", friend: "Gustavo Miller" },
+]
+
 const thoughts = [
      { thoughtText: "Act as if what you do makes a difference. It does.", username: "Felipe Miller"},
      { thoughtText: "Believe you can and you're halfway there.", username: "Mirtha Miller"},
@@ -29,4 +45,4 @@ const thoughts = [
      { thoughtText: "The bad news is time flies. The good news is you're the pilot.", username: "Mirtha Miller"}
 ]
 // Export the functions for use in seed.js
-module.exports = { users, thoughts };
+module.exports = { users, thoughts, friends };

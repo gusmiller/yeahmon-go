@@ -20,7 +20,7 @@ module.exports = {
      },
      async getSingle(req, res) {
           try {
-               const data = await Thouhgts.findOne({ _id: req.params.thought_id })
+               const data = await Thouhgts.findOne({ _id: req.params.Id })
                     .select('-__v');
                if (!data) {
                     return res.status(404).json({ message: 'There is no thought such ID' });
