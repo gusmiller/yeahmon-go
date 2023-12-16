@@ -6,6 +6,9 @@
  * 
  * Date : 12/08/2023 14:01:28 PM
  * gustavo.miller@miller-hs.com 
+ * 
+ * Important Note: when requiring the models use the name exported in
+ * the index.js of the models folder.
  *******************************************************************/
 const { User, Thought } = require('../models');
 

@@ -6,15 +6,16 @@
  * 
  * Date : 12/12/2023 5:39:22 PM
  * gustavo.miller@miller-hs.com 
+ * 
+ * router.route('/').get(getAll).post(newOne); replaces all this
+ *        router.get('/', getAll);
+ *        router.post('/', newOne);
  *******************************************************************/
 const router = require('express').Router();
 const { getAll, getSingle, newOne, deleteThought } = require('../../controllers/thoughtController');
 
 // /api/thoughts
 router.route('/').get(getAll).post(newOne);
-
-// router.get('/', getAll);
-// router.post('/', newOne);
 
 // /api/thoughts/:Id
 router.route('/:Id').get(getSingle).delete(deleteThought);
