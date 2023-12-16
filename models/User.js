@@ -14,7 +14,7 @@ const dataSchema = new Schema(
      {
           username: { type: String, trim: true, unique: true, require: true },
           email: { type: String, require: true },
-          items: [{ itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item'}}],
+          // items: [{ itemId: { type: Schema.Types.ObjectId, ref: 'Item'}}],
           thoughts: [{ type: Schema.Types.ObjectId,ref: 'thought' }],
           friends: [{ type: Schema.Types.ObjectId,ref: 'User', unique: true }],
      },
