@@ -31,7 +31,7 @@ module.exports = {
 
                res.json(data);
           } catch (error) {
-               res.status(500).json(error);
+               res.status(500).json(error.message);
           }
      },
      async newOne(req, res) {
@@ -47,14 +47,23 @@ module.exports = {
                res.json(dbData);
 
           } catch (error) {
-               res.status(500).json(error);
+               res.status(500).json(error.message);
           }
      },
+     /**
+      * This method in the Thought controller will update a given user id with
+      * new data passed in the parameters. Question what if I pass a empty
+      * thoughts array? would this overwrite the existing ones.
+      * Perhaps this validation is outside the scpo of this excercise.
+      * 
+      * @param {object} req contains the json object with the fields to update
+      * @param {*} res 
+      */
      async updateThought(req, res) {
           try {
 
                const data = await Thought.findOneAndUpdate(
-                    { _id: req.params.courseId },
+                    { _id: req.params.Id },
                     { $set: req.body },
                     { runValidators: true, new: true }
                );
@@ -66,9 +75,17 @@ module.exports = {
                res.json(data);
 
           } catch (error) {
-               res.status(500).json(error.error);
+               res.status(500).json(error.message);
           }
      },
+     /**
+      * The delete thouhgt and the thoughts controller will take care of removing a user from the mongoDB 
+      * NoSQL database. It will also find the owne of the thought and delete it, or shoul I say remove 
+      * from the array
+      * @param {object} req contains the json user ID that needs to be removed.
+      * @param {*} res 
+      * @returns 
+      */
      async deleteThought(req, res) {
           try {
 
@@ -90,7 +107,7 @@ module.exports = {
                res.json({ message: 'Thought has been successfully deleted!' });
 
           } catch (error) {
-               res.status(500).json(error.error);
+               res.status(500).json(error.message);
           }
      },
 };

@@ -27,7 +27,7 @@ module.exports = {
                     .select('-__v');
 
                if (!data) {
-                    return res.status(404).json({ message: 'No user with such user ID' });
+                    return res.status(404).json({ message: 'No user with such ID' });
                }
 
                res.json(data);
@@ -43,9 +43,64 @@ module.exports = {
                res.status(500).json(error);
           }
      },
+     async addFriend(req, res) {
+          try {
+               
+               const friendData = await User.findOne({ _id: req.params.friendId });
+               if (!friendData) {
+                    return res.status(404).json({ message: 'We need valid friend user ID' });
+               }
+
+               const user = await User.findOneAndUpdate(
+                    { username: dbData.username },
+                    { $push: { friends: friendData._id } },
+                    { new: true }
+               );
+
+               res.json(dbData);
+               
+          } catch (error) {
+               res.status(500).json(error);
+          }
+     },
+     /**
+      * This method in the users controller will update a given user id with
+      * new data passed in the parameters. Question what if I pass a empty
+      * thoughts or friends arrays? would this overwrite the existing ones.  
+      * Perhaps this validation is outside the scpo of this excercise.
+      * 
+      * @param {object} req contains the json object with the fields to update
+      * @param {*} res 
+      */
+     async updateUser(req, res) {
+
+          try {
+
+               const data = await User.findOneAndUpdate(
+                    { _id: req.params.Id },
+                    { $set: req.body },
+                    { runValidators: true, new: true }
+               );
+
+               if (!data) {
+                    res.status(404).json({ message: 'No such user found!' });
+               }
+               res.json(data);
+
+          } catch (error) {
+               res.status(500).json(error.message);
+          }
+     },
+     /**
+      * The delete user and the user's controller will take care of removing a user from the mongoDB 
+      * NoSQL database. It will also delete all of the thoughts thes user may have.
+      * @param {object} req contains the json user ID that needs to be removed.
+      * @param {*} res 
+      * @returns 
+      */
      async deleteUser(req, res) {
           try {
-               const data = await User.findOne({ _id: req.params.userId })
+               const data = await User.findOne({ _id: req.params.userId });
                const dbData = await User.findOneAndRemove({ _id: req.params.userId });
 
                if (!dbData) { return res.status(404).json({ message: 'No user found!' }); }
