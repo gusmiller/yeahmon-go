@@ -56,16 +56,18 @@ module.exports = {
      async addFriend(req, res) {
           try {
 
+               // Validation: verify the Friend user account exists
                const friendData = await User.findOne({ _id: req.params.friendId });
                if (!friendData) {
                     return res.status(404).json({ message: 'We need valid friend user ID' });
                };
 
-               // This will find there target user account
+               // Verify the Source user account exists
                const sourceUser = await User.findOne({ _id: req.params.userId });
                if (!sourceUser) {
                     return res.status(404).json({ message: 'We need valid destination user ID' });
                };
+               // End-of-validation
 
                // This code will attempt to find whether user is already friends with the person trying to be added.
                const exists = User.findOne({ 'friends': req.params.friendId })
@@ -73,6 +75,7 @@ module.exports = {
                     return res.status(404).json({ message: `Friend already exists in ${sourceUser.username} account` });
                };
 
+               // Validation passed - we add the friend
                sourceUser.friends.push(req.params.friendId);
                await sourceUser.save();
 

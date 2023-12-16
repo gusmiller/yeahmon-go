@@ -117,6 +117,13 @@ module.exports = {
                res.status(500).json(error);
           }
      },
+     /**
+      * This controller route will eliminate a reaction assigned to a thought, there is no
+      * validation requiered here as we just delete if anything is found.
+      * @param {*} req parameters are passed throught the request object under parameters
+      * @param {*} res 
+      * @returns 
+      */
      async removeReaction(req, res) {
           try {
                
