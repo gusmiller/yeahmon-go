@@ -45,6 +45,14 @@ module.exports = {
                res.status(500).json(error);
           }
      },
+     /**
+      * Adding a new friend, it's a complicated process. Since we need to validate first that the user 
+      * has not already been added as a friend. Validation should check on this and make sure we have 
+      * no duplications
+      * @param {*} req 
+      * @param {*} res 
+      * @returns 
+      */
      async addFriend(req, res) {
           try {
 
