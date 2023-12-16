@@ -10,7 +10,9 @@
  * Important Note: when requiring the models use the name exported in
  * the index.js of the models folder.
  *******************************************************************/
+const { mongoose, Schema } = require('mongoose');
 const { User, Thought } = require('../models');
+const reactShema = require('../models/Reaction')
 
 module.exports = {
      async getAll(req, res) {
@@ -34,14 +36,28 @@ module.exports = {
                res.status(500).json(error.message);
           }
      },
+     /**
+      * The new thoughts API route will create a new thought in the database. But it will validate first that 
+      * thought does not belong to someone else before its created. Additionally it will run the validations added
+      * to the model - Object Data Modeling (ODM).
+      * @param {*} req contains the json object with the new thought to add
+      * @param {*} res 
+      * @returns 
+      */
      async newOne(req, res) {
           try {
+
+               const exists = await Thought.findOne( { thoughtText: req.body.thoughtText } );
+               if(exists) {
+                    return res.status(404).json({ message: `Thought already taken by ${exists.username} account` });
+               }
+
                const dbData = await Thought.create(req.body);
 
                const user = await User.findOneAndUpdate(
                     { username: dbData.username },
-                    { $push: { Thought: dbData._id } },
-                    { new: true }
+                    { $push: { thoughts: dbData._id } },
+                    { runValidators: true, new: true }
                );
 
                res.json(dbData);
@@ -51,10 +67,9 @@ module.exports = {
           }
      },
      /**
-      * This method in the Thought controller will update a given user id with
-      * new data passed in the parameters. Question what if I pass a empty
-      * thoughts array? would this overwrite the existing ones.
-      * Perhaps this validation is outside the scpo of this excercise.
+      * This method in the Thought controller will update a given user id with new data passed in 
+      * the parameters. Question what if I pass a empty thoughts array? would this overwrite the 
+      * existing ones. Perhaps this validation is outside the scope of this excercise.
       * 
       * @param {object} req contains the json object with the fields to update
       * @param {*} res 
@@ -73,6 +88,36 @@ module.exports = {
                }
 
                res.json(data);
+
+          } catch (error) {
+               res.status(500).json(error.message);
+          }
+     },
+     /**
+      * The route add reactions will add a users response to a thought or reflection. There is no validation 
+      * in this module. As many people can have the same reaction.
+      * @param {*} req contains the json Thought ID in where a reaction will be added
+      * @param {*} res 
+      */
+     async addReaction(req, res) {
+          try {
+
+               const owner = await Thought.findOne({ _id: req.params.thoughtId }); // Find the thought first
+               if (!owner) {
+                    res.status(404).json({ message: 'No such thought found!' });
+               }
+
+               const react = mongoose.model('React', reactShema);
+
+               await react.create({
+                    reactionId: new Schema.Types.ObjectId,
+                    reactionBody: req.body.reactionBody,
+                    username: req.body.username
+               });
+
+               if (!react) {
+                    res.status(404).json({ message: 'No such thought found!' });
+               }
 
           } catch (error) {
                res.status(500).json(error.message);
