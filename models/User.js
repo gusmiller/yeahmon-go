@@ -16,7 +16,7 @@ const dataSchema = new Schema(
           email: { type: String, require: true },
           // items: [{ itemId: { type: Schema.Types.ObjectId, ref: 'Item'}}],
           thoughts: [{ type: Schema.Types.ObjectId,ref: 'thought' }],
-          friends: [{ type: Schema.Types.ObjectId,ref: 'User', unique: true }],
+          friends: [{ type: Schema.Types.ObjectId,ref: 'User' }],
      },
      { toJSON: { virtuals: true }, id: false }
 );

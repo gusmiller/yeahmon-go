@@ -69,11 +69,16 @@ module.exports = {
                };
                // End-of-validation
 
-               // This code will attempt to find whether user is already friends with the person trying to be added.
-               const exists = User.findOne({ 'friends': req.params.friendId })
-               if (exists) {
-                    return res.status(404).json({ message: `Friend already exists in ${sourceUser.username} account` });
+               const condition = await User.find({ friends: req.params.friendId });
+               if (condition) {
+                    return res.status(404).json({ message: 'Already friends with selected user!' });
                };
+
+               // This code will attempt to find whether user is already friends with the person trying to be added.
+               // const exists = User.findOne({ 'friends': req.params.friendId })
+               // if (exists) {
+               //      return res.status(404).json({ message: `Friend already exists in ${sourceUser.username} account` });
+               // };
 
                // Validation passed - we add the friend
                sourceUser.friends.push(req.params.friendId);
