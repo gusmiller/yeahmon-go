@@ -26,8 +26,8 @@
 ---
 
 **`/api/thoughts/:thoughtId/reactions`**
-* `POST` to create a reaction stored in a single thought's `reactions` array field
-* `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
+* ~~`POST` to create a reaction stored in a single thought's `reactions` array field~~
+* ~~`DELETE` to pull and remove a reaction by the reaction's `reactionId` value~~
 
 ---
 © 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
