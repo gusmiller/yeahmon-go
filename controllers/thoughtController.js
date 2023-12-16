@@ -100,19 +100,40 @@ module.exports = {
       */
      async addReaction(req, res) {
           try {
-
-               const owner = await Thought.findOneAndUpdate(
+              
+               const thought = await Thought.findOneAndUpdate(
                     { _id: req.params.thoughtId },
                     { $addToSet: { reactions: req.body } },
                     { runValidators: true, new: true }
                );
 
-               if (!owner) {
-                    res.status(404).json({ message: 'No such thought found!' });
+               if (!thought) {
+                    return res.status(404).json({ message: 'No such thought found!' });
                }
+               
+               res.json(thought);
 
           } catch (error) {
                res.status(500).json(error);
+          }
+     },
+     async removeReaction(req, res) {
+          try {
+               
+               const thought = await Thought.findOneAndUpdate(
+                    { _id: req.params.thoughtId },
+                    { $pull: { reactions: { reactionId: req.params.reactionId } } },
+                    { new: true }
+               );
+
+               if (!thought) {
+                    return res.status(404).json({ message: 'No such thought found!' });
+               }
+
+               res.json(thought);
+
+          } catch (err) {
+               res.status(500).json(err);
           }
      },
      /**
