@@ -8,7 +8,7 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const { Schema, model } = require('mongoose');
-const reaction = require('./Reaction')
+const reactionSchema = require('./Reaction')
 const validate = require('mongoose-validator');
 
 const nameValidator = [
@@ -26,9 +26,9 @@ const dataSchema = new Schema(
           thoughtText: { type: String, require: true, validate: nameValidator },
           createdAt: { type: Date, default: Date.now },
           username: { type: String, require: true },
-          reactions: [reaction],
+          reactions: [reactionSchema],
      },
-     { toJSON: { virtuals: true }, id: false });
+     { toJSON: { getters: true, virtuals: true }, id: false });
 
 // Format date using a virtual prop. We should use a date library to configure
 // how date should be configured.

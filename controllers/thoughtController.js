@@ -12,7 +12,6 @@
  *******************************************************************/
 const { mongoose, Schema } = require('mongoose');
 const { User, Thought } = require('../models');
-const reactShema = require('../models/Reaction')
 
 module.exports = {
      async getAll(req, res) {
@@ -47,8 +46,8 @@ module.exports = {
      async newOne(req, res) {
           try {
 
-               const exists = await Thought.findOne( { thoughtText: req.body.thoughtText } );
-               if(exists) {
+               const exists = await Thought.findOne({ thoughtText: req.body.thoughtText });
+               if (exists) {
                     return res.status(404).json({ message: `Thought already taken by ${exists.username} account` });
                }
 
@@ -102,25 +101,18 @@ module.exports = {
      async addReaction(req, res) {
           try {
 
-               const owner = await Thought.findOne({ _id: req.params.thoughtId }); // Find the thought first
+               const owner = await Thought.findOneAndUpdate(
+                    { _id: req.params.thoughtId },
+                    { $addToSet: { reactions: req.body } },
+                    { runValidators: true, new: true }
+               );
+
                if (!owner) {
                     res.status(404).json({ message: 'No such thought found!' });
                }
 
-               const react = mongoose.model('React', reactShema);
-
-               await react.create({
-                    reactionId: new Schema.Types.ObjectId,
-                    reactionBody: req.body.reactionBody,
-                    username: req.body.username
-               });
-
-               if (!react) {
-                    res.status(404).json({ message: 'No such thought found!' });
-               }
-
           } catch (error) {
-               res.status(500).json(error.message);
+               res.status(500).json(error);
           }
      },
      /**

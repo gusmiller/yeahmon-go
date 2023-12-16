@@ -7,7 +7,7 @@
  * Date : 12/11/2023 7:59:18 PM
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
-const { Schema } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const validate = require('mongoose-validator');
 
 const nameValidator = [
