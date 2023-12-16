@@ -50,6 +50,25 @@ module.exports = {
                res.status(500).json(error);
           }
      },
+     async updateThought(req, res) {
+          try {
+
+               const data = await Thought.findOneAndUpdate(
+                    { _id: req.params.courseId },
+                    { $set: req.body },
+                    { runValidators: true, new: true }
+               );
+
+               if (!data) {
+                    res.status(404).json({ message: 'No such thought found!' });
+               }
+
+               res.json(data);
+
+          } catch (error) {
+               res.status(500).json(error.error);
+          }
+     },
      async deleteThought(req, res) {
           try {
 
@@ -70,8 +89,8 @@ module.exports = {
 
                res.json({ message: 'Thought has been successfully deleted!' });
 
-          } catch (err) {
-               res.status(500).json(err);
+          } catch (error) {
+               res.status(500).json(error.error);
           }
      },
 };
