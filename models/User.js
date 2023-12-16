@@ -8,6 +8,7 @@
  * gustavo.miller@miller-hs.com 
  *******************************************************************/
 const { Schema, model } = require('mongoose');
+const dateFormatted = require('dateformat');
 
 // Schema to create User model
 const dataSchema = new Schema(

@@ -33,7 +33,8 @@ const dataSchema = new Schema(
 // Format date using a virtual prop. We should use a date library to configure
 // how date should be configured.
 dataSchema.virtual('formattedDT').get(function () {
-     return this.createdAt.toLocaleString(); // Date to Locale
+     return dateFormat(this.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+     //return this.createdAt.toLocaleString(); // Date to Locale
 });
 
 module.exports = dataSchema;
