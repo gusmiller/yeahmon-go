@@ -45,20 +45,35 @@ module.exports = {
      },
      async addFriend(req, res) {
           try {
-               
+
                const friendData = await User.findOne({ _id: req.params.friendId });
                if (!friendData) {
                     return res.status(404).json({ message: 'We need valid friend user ID' });
+               };
+
+               // This will find there target user account
+               const sourceUser = await User.findOne({ _id: req.params.userId });
+               if (!sourceUser) {
+                    return res.status(404).json({ message: 'We need valid destination user ID' });
+               };
+
+               // We have the destination user, now we look for the item
+               const exists = sourceUser.friends
+                    .find(p => p.ref === req.params.friendId);
+
+               // it returns undefined - it fails right here.
+               if (exists) {
+
+               } else {
+                    const user = await User.findOneAndUpdate(
+                         { _Id: req.params.userId },
+                         { $push: { friends: friendData._id } },
+                         { new: true }
+                    );
                }
 
-               const user = await User.findOneAndUpdate(
-                    { username: dbData.username },
-                    { $push: { friends: friendData._id } },
-                    { new: true }
-               );
-
                res.json(dbData);
-               
+
           } catch (error) {
                res.status(500).json(error);
           }
