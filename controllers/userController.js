@@ -10,7 +10,9 @@
  * Important Note: when requiring the models use the name exported in
  * the index.js of the models folder.
  *******************************************************************/
+const { Schema } = require('mongoose');
 const { User, Thought } = require('../models');
+const { schema } = require('../models/User');
 
 module.exports = {
      async getAll(req, res) {
@@ -57,7 +59,11 @@ module.exports = {
                     return res.status(404).json({ message: 'We need valid destination user ID' });
                };
 
-               const test = User.findOne({ 'friends': mongoose.Types.ObjectId(req.params.friendId) })
+               // This code will attempt to find whether user is already friends with the person trying to be added.
+               const exists = User.findOne({ 'friends': req.params.friendId })
+               if (exists) {
+                    return res.status(404).json({ message: `Friend already exists in ${sourceUser.username} account` });
+               };
 
                sourceUser.friends.push(req.params.friendId);
                await sourceUser.save();
@@ -65,7 +71,7 @@ module.exports = {
                res.json(sourceUser);
 
           } catch (error) {
-               res.status(500).json(error);
+               res.status(500).json(error.message);
           }
      },
      /**
