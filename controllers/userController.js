@@ -57,22 +57,12 @@ module.exports = {
                     return res.status(404).json({ message: 'We need valid destination user ID' });
                };
 
-               // We have the destination user, now we look for the item
-               const exists = sourceUser.friends
-                    .find(p => p.ref === req.params.friendId);
+               const test = User.findOne({ 'friends': mongoose.Types.ObjectId(req.params.friendId) })
 
-               // it returns undefined - it fails right here.
-               if (exists) {
+               sourceUser.friends.push(req.params.friendId);
+               await sourceUser.save();
 
-               } else {
-                    const user = await User.findOneAndUpdate(
-                         { _Id: req.params.userId },
-                         { $push: { friends: friendData._id } },
-                         { new: true }
-                    );
-               }
-
-               res.json(dbData);
+               res.json(sourceUser);
 
           } catch (error) {
                res.status(500).json(error);
