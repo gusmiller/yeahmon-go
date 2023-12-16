@@ -15,7 +15,7 @@ const nameValidator = [
      validate({
           validator: 'isLength',
           arguments: [1, 280],
-          message: 'Name should be between 1 and 280 characters'
+          message: 'Thought should be between 1 and 280 characters'
      })
 ];
 
