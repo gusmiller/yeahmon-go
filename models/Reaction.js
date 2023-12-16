@@ -9,6 +9,7 @@
  *******************************************************************/
 const { Schema, Types } = require('mongoose');
 const validate = require('mongoose-validator');
+const date = require('date-and-time');
 
 const nameValidator = [
      validate({
@@ -33,8 +34,7 @@ const dataSchema = new Schema(
 // Format date using a virtual prop. We should use a date library to configure
 // how date should be configured.
 dataSchema.virtual('formattedDT').get(function () {
-     return dateFormat(this.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
-     //return this.createdAt.toLocaleString(); // Date to Locale
+     return date.format(this.createdAt, 'ddd, MMM DD YYYY'); // Date to Locale
 });
 
 module.exports = dataSchema;
