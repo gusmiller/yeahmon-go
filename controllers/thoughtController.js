@@ -100,7 +100,19 @@ module.exports = {
       */
      async addReaction(req, res) {
           try {
-              
+
+               const exists = await Thought.find({
+                    reactions: {
+                         $elemMatch: {
+                              reactionBody: req.body.reactionBody,
+                              username: req.body.username
+                         }
+                    }
+               });
+               if (exists) {
+                    return res.status(404).json({ message: 'You have already post that reaction!' });
+               }
+
                const thought = await Thought.findOneAndUpdate(
                     { _id: req.params.thoughtId },
                     { $addToSet: { reactions: req.body } },
@@ -110,7 +122,7 @@ module.exports = {
                if (!thought) {
                     return res.status(404).json({ message: 'No such thought found!' });
                }
-               
+
                res.json(thought);
 
           } catch (error) {
@@ -126,7 +138,7 @@ module.exports = {
       */
      async removeReaction(req, res) {
           try {
-               
+
                const thought = await Thought.findOneAndUpdate(
                     { _id: req.params.thoughtId },
                     { $pull: { reactions: { reactionId: req.params.reactionId } } },

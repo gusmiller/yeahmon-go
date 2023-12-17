@@ -104,7 +104,7 @@ module.exports = {
           try {
 
                const data = await User.findOneAndUpdate(
-                    { _id: req.params.Id },
+                    { _id: req.params.userId },
                     { $set: req.body },
                     { runValidators: true, new: true }
                );
