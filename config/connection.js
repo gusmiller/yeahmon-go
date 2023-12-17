@@ -12,7 +12,6 @@ const { connect, connection } = require('mongoose');
 const dic = require("../utils/queries");
 const messages = require("../utils/formatter");
 
-messages.msg(dic.messages.databasename, process.env.DB_NAME);
 connect(process.env.DB_HOST + process.env.DB_NAME)
      .then(() => {
           messages.msg(dic.messages.databaseconnected);

@@ -15,8 +15,10 @@
 		<li><a href="#Description">Social Network API Description</a></li>
 		<li><a href="#installation">Installation</a></li>
 		<li><a href="#usage">Application Usage</a></li>
-          <li><a href="#technology">Technologie</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#screenshots">Screen-shots</a></li>
 		<li><a href="#contactme">Questions? Contact Me!</a></li>
+          <li><a href="#license">License</a></li>
 	</ol>
 </details>
 
@@ -33,7 +35,7 @@ This week's assignment is to build a social network API that would allow users s
 Nevertheless here is my product. Yeahman-Go!
 
 <div style="margin-top: 15px;">
-	<img src="./assets/images/node001.png">
+	<img src="./public/images/MN001.png">
 </div>
 </div>
 
@@ -94,8 +96,45 @@ Dependancies included in the package.json:
 
 </div>
 
-<div id="contactme" style="margin-top: 25px;">
+<div id="screenshots" style="margin-top: 25px;">
 
+## Screen-shots
+Here are some of the screen-shots I took from the Users, Thoughts and Reactions. I have not included all possible conditionals but it will help you understa how the API works and where it could be enhanced.
+
+<details style="margin-bottom: 25px; margin-top: 25px;">
+<summary>The interface used to test the Network Database is Insomnia. Insomnia is a collaborative open source API development platform that makes it easy to build high-quality APIs — without the bloat and clutter of other tools.</summary>
+
+<div style="margin-top: 15px;">
+     <img src="./public/images/MN002.png">
+</div>
+
+If you want to know more about Insomnia please visit their official [website](https://insomnia.rest/) for further information
+
+</details>
+
+<details style="margin-bottom: 25px; margin-top: 25px;">
+<summary>The Users collection is simple but it contains two embedded subdocuments which makes it challenging to maintain. Users same as Thoughts have GET,PUT,POST and DEL endpoints to handle data. In this example we see the GET in action, it returns all the users available</summary>
+
+<div style="margin-top: 15px;">
+     <img src="./public/images/MN003.png">
+</div>
+
+</details>
+
+<details style="margin-bottom: 25px; margin-top: 25px;">
+<summary>The Thoughts collection is similar to the Users, but instead of having an embedded collection it contains an abstract of a collection; Reactions. There is no Reactions collection but its schema is used to create a collection whithin the Thoughts. In the example below there are no thoughts with Reactions but in the video you can see this in action. This is just a teaser.</summary>
+
+<div style="margin-top: 15px;">
+     <img src="./public/images/MN004.png">
+</div>
+
+</details>
+
+To appreciate the whole application starting from scratch to end, please watch the video I have prepared. Hope you enjoy it!
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+</div>
 
 <div id="technology" style="margin-top: 25px;">
 
@@ -115,7 +154,7 @@ The following should list any major frameworks/libraries used to in the designin
 
 </div>
 
-<div id="usage" style="margin-top: 25px;">
+<div id="contactme" style="margin-top: 25px;">
 
 ## Questions? Contact Me 
 
@@ -125,8 +164,6 @@ Do not hesitate in contacting me, Gustavo Miller - gustavo.miller@miller-hs.com.
 
 You may find the application at: [https://github.com/gusmiller/yeahmon-go](https://github.com/gusmiller/yeahmon-go)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 </div>
 
 <div id="license" style="margin-top: 25px;">
@@ -134,6 +171,8 @@ You may find the application at: [https://github.com/gusmiller/yeahmon-go](https
 ## License
 
 For this project I have decided to use a different licence - trying to understand the differences between them. I have not customized the terms and conditions to the application in case. If one day I publish this application then I will, for now is up to you to make it yours.
+
+Here is the License file: [GNU GENERAL PUBLIC LICENSE](LICENSE)
 
 <a><img src="https://img.shields.io/static/v1.svg?label=License&message=GNU General&color=yellow"/></a>
 
