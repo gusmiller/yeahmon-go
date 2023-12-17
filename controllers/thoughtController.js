@@ -27,7 +27,8 @@ module.exports = {
                const data = await Thought.findOne({ _id: req.params.Id })
                     .select('-__v');
                if (!data) {
-                    return res.status(404).json({ message: 'There is no thought such ID' });
+                    return res.status(404)
+                         .json({ message: 'There is no thought such ID' });
                }
 
                res.json(data);
@@ -36,9 +37,10 @@ module.exports = {
           }
      },
      /**
-      * The new thoughts API route will create a new thought in the database. But it will validate first that 
-      * thought does not belong to someone else before its created. Additionally it will run the validations added
-      * to the model - Object Data Modeling (ODM).
+      * The new thoughts API route will create a new thought in the database. But it 
+      * will validate first that thought does not belong to someone else before its 
+      * created. Additionally it will run the validations added to the model - 
+      * Object Data Modeling (ODM).
       * @param {*} req contains the json object with the new thought to add
       * @param {*} res 
       * @returns 
@@ -83,7 +85,8 @@ module.exports = {
                );
 
                if (!data) {
-                    res.status(404).json({ message: 'No such thought found!' });
+                    res.status(404)
+                         .json({ message: 'No such thought found!' });
                }
 
                res.json(data);
@@ -93,8 +96,9 @@ module.exports = {
           }
      },
      /**
-      * The route add reactions will add a users response to a thought or reflection. There is no validation 
-      * in this module. As many people can have the same reaction.
+      * The route add reactions will add a users response to a thought or reflection. 
+      * The is a validation in this module to ensure the same user is not sending the 
+      * same reaction again. As many people can have the same reaction.
       * @param {*} req contains the json Thought ID in where a reaction will be added
       * @param {*} res 
       */
@@ -111,7 +115,8 @@ module.exports = {
                     }
                });
                if (!exists[0] === 'undefined') {
-                    return res.status(404).json({ message: 'You have already post that reaction!' });
+                    return res.status(404)
+                         .json({ message: 'You have already post that reaction!' });
                }
 
                const thought = await Thought.findOneAndUpdate(
@@ -121,7 +126,8 @@ module.exports = {
                );
 
                if (!thought) {
-                    return res.status(404).json({ message: 'No such thought found!' });
+                    return res.status(404)
+                         .json({ message: 'No such thought found!' });
                }
 
                res.json(thought);
@@ -147,7 +153,8 @@ module.exports = {
                );
 
                if (!thought) {
-                    return res.status(404).json({ message: 'No such thought found!' });
+                    return res.status(404)
+                         .json({ message: 'No such thought found!' });
                }
 
                res.json(thought);
@@ -157,9 +164,9 @@ module.exports = {
           }
      },
      /**
-      * The delete thouhgt and the thoughts controller will take care of removing a user from the mongoDB 
-      * NoSQL database. It will also find the owne of the thought and delete it, or shoul I say remove 
-      * from the array
+      * The delete thouhgt and the thoughts controller will take care of removing a user 
+      * from the mongoDB NoSQL database. It will also find the owne of the thought and 
+      * delete it, or shoul I say remove from the array
       * @param {object} req contains the json user ID that needs to be removed.
       * @param {*} res 
       * @returns 
@@ -175,7 +182,8 @@ module.exports = {
                ); // Find the user with the Thought username and pull it out of the array.
 
                if (userdata.confirmed === false) {
-                    return res.status(404).json({ message: 'Not able to find thought in user ID' });
+                    return res.status(404)
+                         .json({ message: 'Not able to find thought in user ID' });
                }
 
                // Delete the thought now
