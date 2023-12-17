@@ -102,6 +102,7 @@ module.exports = {
           try {
 
                const exists = await Thought.find({
+                    _id: req.params.thoughtId,
                     reactions: {
                          $elemMatch: {
                               reactionBody: req.body.reactionBody,
@@ -109,7 +110,7 @@ module.exports = {
                          }
                     }
                });
-               if (exists) {
+               if (!exists[0] === 'undefined') {
                     return res.status(404).json({ message: 'You have already post that reaction!' });
                }
 
