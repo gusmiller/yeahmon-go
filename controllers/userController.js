@@ -39,6 +39,12 @@ module.exports = {
      },
      async newUser(req, res) {
           try {
+               // Validation: verify the user account already exists
+               const exists = await User.findOne({ username: req.body.username });
+               if (!exists) {
+                    return res.status(404).json({ message: 'We need valid friend user ID' });
+               };
+
                const dbData = await User.create(req.body);
                res.json(dbData);
           } catch (error) {
