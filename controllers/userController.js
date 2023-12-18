@@ -41,21 +41,64 @@ module.exports = {
           try {
                // Validation: verify the user account already exists
                const exists = await User.findOne({ username: req.body.username });
-               if (exists!==null) {
+               if (exists !== null) {
                     return res.status(404).json({ message: `User already exist! ${exists._id}` });
                };
 
                const dbData = await User.create(req.body);
                res.json(dbData);
+
           } catch (error) {
                res.status(500).json(error);
+          }
+     },
+     /**
+      * Removing a friend form users profile is a bit simpler than adding one.
+      * @param {*} req contains the json object with the friends and the source to update
+      * @param {*} res 
+      * @returns 
+      */
+     async removeFriend(req, res) {
+          try {
+
+               // Validation: verify the Friend user account exists
+               const friendData = await User.findOne({ _id: req.params.friendId });
+               if (!friendData) {
+                    return res.status(404).json({ message: 'We need valid friend user ID' });
+               };
+
+               // Verify the Source user account exists
+               const sourceUser = await User.findOne({ _id: req.params.userId });
+               if (!sourceUser) {
+                    return res.status(404).json({ message: 'We need valid destination user ID' });
+               };
+               // End-of-validation
+
+               // we use the method find to retrieve all records that could possibly match the conditionals
+               // but since we are being very specific it should return only 1
+               const condition = await User.find({ friends: req.params.friendId, _id: req.params.userId });
+               if (condition.length === 0) {
+                    return res.status(404).json(
+                         {
+                              message: `${friendData.username} is not friends with ${sourceUser.username}! Cannot delete!`
+                         });
+               };
+
+               // Validation passed - we remove the friend
+               sourceUser.friends.pull(req.params.friendId);
+               await sourceUser.save();
+
+               res.json(sourceUser);
+
+          } catch (error) {
+               res.status(500).json(error.message);
           }
      },
      /**
       * Adding a new friend, it's a complicated process. Since we need to validate first that the user 
       * has not already been added as a friend. Validation should check on this and make sure we have 
       * no duplications
-      * @param {*} req 
+      * @param {*} req contains the json object with the friends and the source to update
       * @param {*} res 
       * @returns 
       */
@@ -75,16 +118,12 @@ module.exports = {
                };
                // End-of-validation
 
-               const condition = await User.find({ friends: req.params.friendId });
-               if (condition) {
-                    return res.status(404).json({ message: 'Already friends with selected user!' });
+               // we use the method find to retrieve all records that could possibly match the conditionals
+               // but since we are being very specific it should return only 1
+               const condition = await User.find({ friends: req.params.friendId, _id: req.params.userId });
+               if (condition.length === 1) {
+                    return res.status(404).json({ message: `${friendData.username} is already friends with ${sourceUser.username}!` });
                };
-
-               // This code will attempt to find whether user is already friends with the person trying to be added.
-               // const exists = User.findOne({ 'friends': req.params.friendId })
-               // if (exists) {
-               //      return res.status(404).json({ message: `Friend already exists in ${sourceUser.username} account` });
-               // };
 
                // Validation passed - we add the friend
                sourceUser.friends.push(req.params.friendId);

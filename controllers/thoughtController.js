@@ -105,7 +105,7 @@ module.exports = {
      async addReaction(req, res) {
           try {
 
-               const exists = await Thought.find({
+               const condition = await Thought.find({
                     _id: req.params.thoughtId,
                     reactions: {
                          $elemMatch: {
@@ -114,7 +114,8 @@ module.exports = {
                          }
                     }
                });
-               if (!exists[0] === 'undefined') {
+
+               if (condition.length === 1) {
                     return res.status(404)
                          .json({ message: 'You have already post that reaction!' });
                }
@@ -145,6 +146,11 @@ module.exports = {
       */
      async removeReaction(req, res) {
           try {
+
+               const exists = await Thought.findOne({ _id: req.params.thoughtId });
+               if (!exists) {
+                    return res.status(404).json({ message: `No such Thought with ID: ${req.params.thoughtId} found` });
+               }
 
                const thought = await Thought.findOneAndUpdate(
                     { _id: req.params.thoughtId },
